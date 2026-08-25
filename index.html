@@ -4,35 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Xypher</title>
+    <title>Xypher — Roblox Account Manager</title>
 
-    <meta
-        name="description"
-        content="Xypher is a desktop Roblox account and session management application."
-    >
+    <link rel="icon" type="image/png" href="xyphericon2.png">
 
     <style>
         * {
             box-sizing: border-box;
         }
 
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-            min-height: 100%;
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
+            margin: 0;
             background:
                 radial-gradient(
-                    circle at top right,
-                    #18202d 0%,
-                    #0a0d12 45%,
-                    #07090d 100%
+                    circle at 50% -10%,
+                    #24103f 0%,
+                    #0d0915 32%,
+                    #07080c 68%,
+                    #050609 100%
                 );
-
-            color: #f4f7fb;
+            color: #ffffff;
             font-family:
                 -apple-system,
                 BlinkMacSystemFont,
@@ -40,137 +35,658 @@
                 Roboto,
                 Arial,
                 sans-serif;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+
+            background:
+                radial-gradient(
+                    circle at 50% 20%,
+                    rgba(125, 45, 255, 0.08),
+                    transparent 35%
+                );
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            width: 100%;
+
+            background: rgba(5, 6, 10, 0.78);
+            border-bottom: 1px solid rgba(145, 82, 255, 0.14);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .nav-inner {
+            width: min(1120px, 92%);
+            height: 72px;
+            margin: 0 auto;
 
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
         }
 
-        .container {
-            width: min(900px, 92%);
-            padding: 80px 20px;
-            text-align: center;
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            text-decoration: none;
         }
 
-        .logo {
-            width: 76px;
-            height: 76px;
-            margin: 0 auto 28px;
+        .brand img {
+            width: 42px;
+            height: 42px;
 
-            border-radius: 18px;
+            object-fit: cover;
+
+            border-radius: 10px;
+
+            box-shadow:
+                0 0 20px rgba(126, 52, 255, 0.35);
+        }
+
+        .brand-name {
+            font-size: 19px;
+            font-weight: 800;
+            letter-spacing: 4px;
 
             background:
                 linear-gradient(
-                    135deg,
-                    #5865f2,
-                    #7c5cff
+                    90deg,
+                    #ffffff,
+                    #b68cff,
+                    #ffffff
                 );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: #8f98a9;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .hero {
+            width: min(1120px, 92%);
+            min-height: calc(100vh - 72px);
+
+            margin: 0 auto;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            font-size: 34px;
-            font-weight: 800;
+            padding: 80px 0 100px;
+        }
+
+        .hero-content {
+            width: 100%;
+            max-width: 850px;
+
+            text-align: center;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            justify-content: center;
+
+            margin-bottom: 30px;
+        }
+
+        .hero-logo {
+            width: 210px;
+            height: 210px;
+
+            object-fit: cover;
+
+            border-radius: 38px;
 
             box-shadow:
-                0 20px 60px rgba(88, 101, 242, 0.25);
+                0 0 40px rgba(125, 42, 255, 0.24),
+                0 0 100px rgba(90, 20, 190, 0.14);
+
+            border: 1px solid rgba(173, 126, 255, 0.12);
+        }
+
+        .eyebrow {
+            display: inline-block;
+
+            padding: 7px 14px;
+            margin-bottom: 20px;
+
+            border: 1px solid rgba(145, 82, 255, 0.25);
+            border-radius: 999px;
+
+            background: rgba(108, 43, 190, 0.08);
+
+            color: #a879ff;
+
+            font-size: 11px;
+            font-weight: 700;
+
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         h1 {
             margin: 0;
 
-            font-size: clamp(48px, 8vw, 82px);
+            font-size: clamp(52px, 9vw, 96px);
+            line-height: 0.95;
+
+            font-weight: 900;
             letter-spacing: -4px;
-            font-weight: 800;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff 15%,
+                    #d7c1ff 48%,
+                    #8d4dff 100%
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         .tagline {
-            margin-top: 14px;
+            max-width: 680px;
 
-            color: #9ba6b7;
+            margin: 26px auto 0;
 
-            font-size: 20px;
-            line-height: 1.6;
+            color: #8e98aa;
+
+            font-size: 18px;
+            line-height: 1.7;
         }
 
-        .description {
-            max-width: 650px;
-            margin: 30px auto 0;
-
-            color: #7f8b9d;
-
-            font-size: 15px;
-            line-height: 1.8;
-        }
-
-        .links {
-            margin-top: 42px;
+        .buttons {
+            margin-top: 38px;
 
             display: flex;
             justify-content: center;
-            gap: 14px;
+            gap: 12px;
+
             flex-wrap: wrap;
         }
 
-        .links a {
-            display: inline-block;
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
 
-            padding: 12px 20px;
+            min-width: 150px;
 
-            border-radius: 8px;
+            padding: 13px 22px;
 
-            background: #151b25;
-            border: 1px solid #242d3b;
-
-            color: #dce3ed;
+            border-radius: 9px;
 
             text-decoration: none;
 
+            font-size: 14px;
+            font-weight: 700;
+
             transition:
-                background 0.2s,
-                border-color 0.2s,
-                transform 0.2s;
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
         }
 
-        .links a:hover {
-            background: #1c2532;
-            border-color: #5865f2;
-
+        .button:hover {
             transform: translateY(-2px);
         }
 
-        footer {
-            margin-top: 70px;
+        .button-primary {
+            color: #ffffff;
 
-            color: #515d6e;
+            background:
+                linear-gradient(
+                    135deg,
+                    #7c3cff,
+                    #5b20c7
+                );
+
+            box-shadow:
+                0 8px 30px rgba(105, 45, 220, 0.28);
+        }
+
+        .button-primary:hover {
+            box-shadow:
+                0 12px 40px rgba(105, 45, 220, 0.42);
+        }
+
+        .button-secondary {
+            color: #c7cfdd;
+
+            background: #11151d;
+
+            border: 1px solid #252c38;
+        }
+
+        .button-secondary:hover {
+            background: #171c26;
+            border-color: #3a4150;
+        }
+
+        .features {
+            width: min(1120px, 92%);
+            margin: 0 auto;
+
+            padding: 30px 0 100px;
+        }
+
+        .section-title {
+            margin: 0;
+
+            text-align: center;
+
+            font-size: 32px;
+            font-weight: 800;
+        }
+
+        .section-subtitle {
+            max-width: 620px;
+
+            margin: 12px auto 42px;
+
+            text-align: center;
+
+            color: #707b8d;
+            font-size: 15px;
+        }
+
+        .feature-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 16px;
+        }
+
+        .feature {
+            padding: 28px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(19, 23, 32, 0.95),
+                    rgba(11, 13, 19, 0.95)
+                );
+
+            border: 1px solid #202632;
+            border-radius: 14px;
+
+            transition:
+                border-color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-3px);
+            border-color: rgba(132, 73, 240, 0.4);
+        }
+
+        .feature-icon {
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 18px;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(128, 61, 255, 0.2),
+                    rgba(82, 30, 150, 0.08)
+                );
+
+            border: 1px solid rgba(139, 78, 255, 0.2);
+
+            color: #a978ff;
+
+            font-size: 19px;
+        }
+
+        .feature h3 {
+            margin: 0 0 9px;
+
+            font-size: 17px;
+        }
+
+        .feature p {
+            margin: 0;
+
+            color: #788396;
+
+            font-size: 14px;
+            line-height: 1.65;
+        }
+
+        .legal {
+            width: min(1120px, 92%);
+            margin: 0 auto;
+
+            padding: 30px 0 35px;
+
+            border-top: 1px solid #171c24;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+        .copyright {
+            color: #4e5969;
+            font-size: 12px;
+        }
+
+        .legal-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .legal-links a {
+            color: #697486;
 
             font-size: 12px;
+            text-decoration: none;
+        }
+
+        .legal-links a:hover {
+            color: #a879ff;
+        }
+
+        @media (max-width: 800px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding-top: 55px;
+            }
+
+            .hero-logo {
+                width: 165px;
+                height: 165px;
+                border-radius: 30px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .legal {
+                flex-direction: column;
+                text-align: center;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <main class="container">
+    <nav class="nav">
+        <div class="nav-inner">
 
-        <div class="logo">
-            X
+            <a class="brand" href="index.html">
+
+                <img
+                    src="xyphericon2.png"
+                    alt="Xypher logo">
+
+                <span class="brand-name">
+                    XYPHER
+                </span>
+
+            </a>
+
+            <div class="nav-links">
+
+                <a href="#features">
+                    Features
+                </a>
+
+                <a href="privacy.html">
+                    Privacy
+                </a>
+
+                <a href="terms.html">
+                    Terms
+                </a>
+
+            </div>
+
+        </div>
+    </nav>
+
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="logo-wrapper">
+
+                    <img
+                        class="hero-logo"
+                        src="xyphericon2.png"
+                        alt="Xypher">
+
+                </div>
+
+                <div class="eyebrow">
+                    Roblox Account Manager
+                </div>
+
+                <h1>
+                    XYPHER
+                </h1>
+
+                <p class="tagline">
+                    A powerful desktop workspace for organizing,
+                    authenticating, and managing your Roblox accounts
+                    and sessions from one place.
+                </p>
+
+                <div class="buttons">
+
+                    <a
+                        class="button button-primary"
+                        href="#features">
+                        Explore Xypher
+                    </a>
+
+                    <a
+                        class="button button-secondary"
+                        href="privacy.html">
+                        Privacy Policy
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section
+            class="features"
+            id="features">
+
+            <h2 class="section-title">
+                Built for control.
+            </h2>
+
+            <p class="section-subtitle">
+                Xypher brings your Roblox account workflow into a
+                clean, dark, focused desktop interface.
+            </p>
+
+
+            <div class="feature-grid">
+
+                <article class="feature">
+
+                    <div class="feature-icon">
+                        ◈
+                    </div>
+
+                    <h3>
+                        Account Management
+                    </h3>
+
+                    <p>
+                        Keep your configured Roblox accounts organized
+                        in one centralized workspace.
+                    </p>
+
+                </article>
+
+
+                <article class="feature">
+
+                    <div class="feature-icon">
+                        ◆
+                    </div>
+
+                    <h3>
+                        Secure Authentication
+                    </h3>
+
+                    <p>
+                        Connect accounts through Roblox's OAuth
+                        authorization flow without giving Xypher
+                        your Roblox password.
+                    </p>
+
+                </article>
+
+
+                <article class="feature">
+
+                    <div class="feature-icon">
+                        ⚡
+                    </div>
+
+                    <h3>
+                        Session Management
+                    </h3>
+
+                    <p>
+                        Launch and monitor Roblox sessions while
+                        keeping track of their current status.
+                    </p>
+
+                </article>
+
+
+                <article class="feature">
+
+                    <div class="feature-icon">
+                        ◎
+                    </div>
+
+                    <h3>
+                        Clean Workspace
+                    </h3>
+
+                    <p>
+                        A dark interface designed to keep account
+                        information and session controls easy to find.
+                    </p>
+
+                </article>
+
+
+                <article class="feature">
+
+                    <div class="feature-icon">
+                        ◉
+                    </div>
+
+                    <h3>
+                        Local Configuration
+                    </h3>
+
+                    <p>
+                        Account configuration is maintained locally
+                        on your computer for convenient access.
+                    </p>
+
+                </article>
+
+
+                <article class="feature">
+
+                    <div class="feature-icon">
+                        X
+                    </div>
+
+                    <h3>
+                        Xypher
+                    </h3>
+
+                    <p>
+                        One workspace. Your accounts. Your sessions.
+                        Your control.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer class="legal">
+
+        <div class="copyright">
+            © 2026 Xypher. All rights reserved.
         </div>
 
-        <h1>Xypher</h1>
+        <div class="legal-links">
 
-        <div class="tagline">
-            Roblox Account &amp; Session Management
-        </div>
-
-        <p class="description">
-            Xypher is a desktop application designed to help users
-            organize and manage their own Roblox accounts and
-            Roblox sessions from a single interface.
-        </p>
-
-        <div class="links">
             <a href="privacy.html">
                 Privacy Policy
             </a>
@@ -178,13 +694,10 @@
             <a href="terms.html">
                 Terms of Service
             </a>
+
         </div>
 
-        <footer>
-            © 2026 Xypher. All rights reserved.
-        </footer>
-
-    </main>
+    </footer>
 
 </body>
 </html>
